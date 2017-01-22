@@ -1,6 +1,6 @@
 package info.cdi;
 
-import info.alternative.UseTheMagic;
+// import info.alternative.UseTheMagic;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

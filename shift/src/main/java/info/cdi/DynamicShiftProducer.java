@@ -3,11 +3,6 @@ package info.cdi;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptySet;
 import static java.util.Collections.singleton;
-// import static java.util.Collections.unmodifiableSet;
-
-// import java.io.Serializable;
-// import java.util.function.Function;
-// import javax.enterprise.inject.spi.PassivationCapable;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
@@ -24,16 +19,15 @@ import javax.enterprise.inject.spi.InjectionPoint;
 
 public class DynamicShiftProducer implements Bean<Shift> {
 
-
     public DynamicShiftProducer() {
         System.err.println("DynamicShiftProducer: ...");
     }
- 
+
     @SuppressWarnings("all")
     public static class DefaultAnnotationLiteral extends AnnotationLiteral<Default> implements Default {
         private static final long serialVersionUID = 1L;
     }
- 
+
     @Override
     public Class<?> getBeanClass() {
         return Shift.class;
@@ -54,14 +48,7 @@ public class DynamicShiftProducer implements Bean<Shift> {
         Set<Annotation> qualifiers = new HashSet<Annotation>();
         qualifiers.add( new DefaultAnnotationLiteral());
         return qualifiers;
-
-        // return singleton((Annotation) new DefaultAnnotationLiteral());
-    } 
- 
-    // @Override
-    // public Set<Annotation> getQualifiers() {
-    //     return singleton((Annotation) new DefaultAnnotationLiteral());
-    // }
+    }
  
     @Override
     public Class<? extends Annotation> getScope() {

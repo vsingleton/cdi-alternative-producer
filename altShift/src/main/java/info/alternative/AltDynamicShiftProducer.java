@@ -1,12 +1,7 @@
 package info.alternative;
 
-import static javax.interceptor.Interceptor.Priority.APPLICATION;
-
 import info.cdi.Shift;
 import info.alternative.AltShiftImpl;
-
-import javax.annotation.Priority;
-import javax.enterprise.inject.Alternative;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptySet;
@@ -24,12 +19,7 @@ import javax.enterprise.context.Dependent;
 import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.InjectionPoint;
-import javax.inject.Qualifier;
-import javax.interceptor.Interceptor;
 
-@Dependent
-@Alternative
-@Priority(APPLICATION+10)
 public class AltDynamicShiftProducer implements Bean<Shift> {
 
     public AltDynamicShiftProducer() {
@@ -41,14 +31,6 @@ public class AltDynamicShiftProducer implements Bean<Shift> {
         private static final long serialVersionUID = 1L;
     }
 
-    public static class PriorityLiteral extends AnnotationLiteral<Priority> implements Priority {
-
-        public int value() {
-            return Interceptor.Priority.APPLICATION+10;
-        }
-
-    }
- 
     @Override
     public Class<?> getBeanClass() {
         return Shift.class;
@@ -63,17 +45,12 @@ public class AltDynamicShiftProducer implements Bean<Shift> {
     public Shift create(CreationalContext<Shift> creationalContext) {
         return new AltShiftImpl("Hello, AltShift.");
     }
- 
+
     @Override
     public Set<Annotation> getQualifiers() {
         Set<Annotation> qualifiers = new HashSet<Annotation>();
         qualifiers.add( new DefaultAnnotationLiteral());
-        // qualifiers.add( new PriorityLiteral());
-        // qualifiers.add( new UseTheMagicAnnotationLiteral());
-        // qualifiers.add( new AnyAnnotationLiteral());
         return qualifiers;
-
-        // return singleton((Annotation) new DefaultAnnotationLiteral());
     }
  
     @Override
@@ -110,6 +87,5 @@ public class AltDynamicShiftProducer implements Bean<Shift> {
     public void destroy(Shift instance, CreationalContext<Shift> creationalContext) {
  
     }
-
 }
 

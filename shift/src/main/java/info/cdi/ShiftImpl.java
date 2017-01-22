@@ -7,7 +7,7 @@ import javax.enterprise.context.Dependent;
  */
 @Dependent
 public class ShiftImpl implements Shift {
-    
+
     public ShiftImpl(String foo) {
         System.out.println("ShiftImpl: ...");
     }

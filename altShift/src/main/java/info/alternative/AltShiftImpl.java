@@ -1,20 +1,16 @@
 package info.alternative;
 
-// import javax.enterprise.inject.Alternative;
-// import javax.interceptor.Interceptor;
-// import javax.annotation.Priority;
 import info.cdi.Shift;
+import javax.enterprise.context.Dependent;
 
 /**
  * Shift implementation only displays the values of the arguments.
  */
-// @Alternative
-// @Priority(Interceptor.Priority.APPLICATION+10)
+@Dependent
 public class AltShiftImpl implements Shift {
 
     public AltShiftImpl(String foo) {
         System.out.println("AltShiftImpl: ...");
-        // new Exception("inside constructor").printStackTrace();
     }
 
    /**
