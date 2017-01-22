@@ -20,6 +20,9 @@ import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.InjectionPoint;
 
+// import javax.enterprise.inject.Alternative;
+
+// @Alternative
 public class AltDynamicShiftProducer implements Bean<Shift> {
 
     public AltDynamicShiftProducer() {
