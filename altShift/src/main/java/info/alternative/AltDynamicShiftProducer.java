@@ -1,28 +1,21 @@
 package info.alternative;
 
 import info.cdi.Shift;
-import info.alternative.AltShiftImpl;
 
-import static java.util.Arrays.asList;
-import static java.util.Collections.emptySet;
-import static java.util.Collections.singleton;
-
+import javax.enterprise.context.Dependent;
+import javax.enterprise.context.spi.CreationalContext;
+import javax.enterprise.inject.Default;
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.InjectionPoint;
+import javax.enterprise.util.AnnotationLiteral;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.enterprise.inject.Default;
-import javax.enterprise.util.AnnotationLiteral;
+import static java.util.Arrays.asList;
+import static java.util.Collections.emptySet;
 
-import javax.enterprise.context.Dependent;
-import javax.enterprise.context.spi.CreationalContext;
-import javax.enterprise.inject.spi.Bean;
-import javax.enterprise.inject.spi.InjectionPoint;
-
-// import javax.enterprise.inject.Alternative;
-
-// @Alternative
 public class AltDynamicShiftProducer implements Bean<Shift> {
 
     public AltDynamicShiftProducer() {
@@ -53,6 +46,7 @@ public class AltDynamicShiftProducer implements Bean<Shift> {
     public Set<Annotation> getQualifiers() {
         Set<Annotation> qualifiers = new HashSet<Annotation>();
         qualifiers.add( new DefaultAnnotationLiteral());
+        // qualifiers.add( new UseTheMagicAnnotationLiteral());
         return qualifiers;
     }
  
@@ -73,7 +67,16 @@ public class AltDynamicShiftProducer implements Bean<Shift> {
  
     @Override
     public boolean isAlternative() {
-        return true;
+        StackTraceElement[] stes = new Throwable().getStackTrace();
+        if (stes != null && stes.length > 1) {
+            if (stes[1].getClassName().contains("BeanDisambiguation")) {
+                if (stes[1].getMethodName().contains("load")) {
+                    // System.err.println("ste: " + stes[1].getClassName() + "." + stes[1].getMethodName());
+                    return true;
+                }
+            }
+        }
+        return false;
     }
  
     @Override

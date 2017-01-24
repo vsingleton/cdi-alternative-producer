@@ -1,7 +1,5 @@
 package info.cdi;
 
-// import info.alternative.UseTheMagic;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -25,7 +23,6 @@ public class ShifterBean {
     private int shiftBy;
 
     @Inject
-    // @UseTheMagic
     Shift shift;
 
     public void shiftString() {
